@@ -18,14 +18,14 @@ public class MainActivity extends BaseActivity implements MainMVP_interface.view
 
 
     MainPresenter mainp;
-
+    MultiSnapRecyclerView firstRecyclerView,shortRecyclerView,knowledgeRecyclerView;
     @Override
     protected void onActivityCreated() {
 
         mainp = new MainPresenter(this);
-        MultiSnapRecyclerView firstRecyclerView = (MultiSnapRecyclerView)findViewById(R.id.recyclermovies);
-        MultiSnapRecyclerView shortRecyclerView = (MultiSnapRecyclerView)findViewById(R.id.recyclershortcartoons);
-        MultiSnapRecyclerView knowledgeRecyclerView = (MultiSnapRecyclerView)findViewById(R.id.recyclerknowledge);
+         firstRecyclerView = (MultiSnapRecyclerView)findViewById(R.id.recyclermovies);
+         shortRecyclerView = (MultiSnapRecyclerView)findViewById(R.id.recyclershortcartoons);
+         knowledgeRecyclerView = (MultiSnapRecyclerView)findViewById(R.id.recyclerknowledge);
         mainp.createMovieslist( firstRecyclerView);
         mainp.createshortcartoonslist(shortRecyclerView);
         mainp.craeteknowledgelist(knowledgeRecyclerView);
@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements MainMVP_interface.view
 
 
 
-    @Override
+
     public void populaterecycerView(MultiSnapRecyclerView firstRecyclerView1, List<VideoModel> rplist) {
 
         RecyclerviewMovieListPresenter rp = new RecyclerviewMovieListPresenter(rplist);
@@ -61,6 +61,21 @@ public class MainActivity extends BaseActivity implements MainMVP_interface.view
         firstRecyclerView1.setLayoutManager(firstManager);
         firstRecyclerView1.setAdapter(firstAdapter);
 
+    }
+
+    @Override
+    public void populaterecycerViewmovie(List<VideoModel> rplist) {
+        populaterecycerView(firstRecyclerView,rplist);
+    }
+
+    @Override
+    public void populaterecycerViewshort(List<VideoModel> rplist) {
+        populaterecycerView(shortRecyclerView,rplist);
+    }
+
+    @Override
+    public void populaterecycerViewknowledge(List<VideoModel> rplist) {
+        populaterecycerView(knowledgeRecyclerView,rplist);
     }
 }
 
