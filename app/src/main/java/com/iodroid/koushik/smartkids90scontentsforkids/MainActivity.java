@@ -26,9 +26,9 @@ public class MainActivity extends BaseActivity implements MainMVP_interface.view
          firstRecyclerView = (MultiSnapRecyclerView)findViewById(R.id.recyclermovies);
          shortRecyclerView = (MultiSnapRecyclerView)findViewById(R.id.recyclershortcartoons);
          knowledgeRecyclerView = (MultiSnapRecyclerView)findViewById(R.id.recyclerknowledge);
-        mainp.createMovieslist( firstRecyclerView);
-        mainp.createshortcartoonslist(shortRecyclerView);
-        mainp.craeteknowledgelist(knowledgeRecyclerView);
+        mainp.createMovieslist( );
+        mainp.createshortcartoonslist();
+        mainp.craeteknowledgelist();
 
 
 

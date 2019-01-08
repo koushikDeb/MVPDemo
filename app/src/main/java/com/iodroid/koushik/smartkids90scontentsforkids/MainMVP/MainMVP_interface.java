@@ -19,9 +19,9 @@ public interface MainMVP_interface {
 
     interface presenter
     {
-       public void createMovieslist(MultiSnapRecyclerView myrecyler);
-       public void createshortcartoonslist(MultiSnapRecyclerView myrecyler);
-       public void craeteknowledgelist(MultiSnapRecyclerView myrecyler);
+       public void createMovieslist();
+       public void createshortcartoonslist();
+       public void craeteknowledgelist();
     }
 
 }
