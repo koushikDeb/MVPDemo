@@ -91,6 +91,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
 
+
+    @Override
+    public void onBackPressed()
+    {
+        onbackpresscalled();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -125,6 +132,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int addActivityLayout();
     protected abstract String getToolbartitle();
+    protected  abstract void onbackpresscalled();
     protected void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
