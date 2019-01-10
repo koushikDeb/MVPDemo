@@ -58,7 +58,7 @@ public class VideoviewActivity extends BaseActivity {
     protected void onbackpresscalled() {
         if (youtube_player_view.isFullScreen()) {
             youtube_player_view.exitFullScreen();
-            
+
         }
         else {
             youtube_player_view.release();
