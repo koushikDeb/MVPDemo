@@ -7,30 +7,52 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.iodroid.koushik.smartkids90scontentsforkids.Model.VideoModel;
 import com.iodroid.koushik.smartkids90scontentsforkids.R;
+import com.iodroid.koushik.smartkids90scontentsforkids.interfaces.RecyclerviewClickListner;
 import com.iodroid.koushik.smartkids90scontentsforkids.interfaces.RowView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public class MoviesViewHolder extends RecyclerView.ViewHolder implements RowView {
-    private ImageView movieimageview;
-    private TextView description;
 
-    public MoviesViewHolder( View itemView) {
+
+    public ImageView movieimageview;
+
+    public TextView description;
+
+
+    public MoviesViewHolder(View itemView) {
         super(itemView);
 
-        this.movieimageview = (ImageView) itemView.findViewById(R.id.movieimageview);
-        this.description = (TextView) itemView.findViewById(R.id.description);
 
+        description = (TextView) itemView.findViewById(R.id.description);
+        movieimageview = (ImageView) itemView.findViewById(R.id.movieimageview);
     }
 
     @Override
     public void setimage(String url) {
-       Glide.with(itemView.getContext()).load(url).into(movieimageview);
+        Glide.with(itemView.getContext()).load(url).into(movieimageview);
     }
 
     @Override
     public void setDescription(String descriptiontext) {
         description.setText(descriptiontext);
     }
+
+
+    @Override
+    public void setOnclicklistner(final VideoModel vm, final RecyclerviewClickListner onclick) {
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onclick.onclick(vm);
+            }
+        });
+    }
+
+
 }

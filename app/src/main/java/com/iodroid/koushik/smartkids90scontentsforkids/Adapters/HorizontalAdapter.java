@@ -9,16 +9,18 @@ import android.widget.TextView;
 import com.iodroid.koushik.smartkids90scontentsforkids.Presenter.RecyclerviewMovieListPresenter;
 import com.iodroid.koushik.smartkids90scontentsforkids.R;
 import com.iodroid.koushik.smartkids90scontentsforkids.RecyclerViewHolder.MoviesViewHolder;
-
+import com.iodroid.koushik.smartkids90scontentsforkids.interfaces.RecyclerviewClickListner;
 
 
 public class HorizontalAdapter extends RecyclerView.Adapter<MoviesViewHolder> {
 
 
     RecyclerviewMovieListPresenter recylermoviepresenter;
-    public HorizontalAdapter(RecyclerviewMovieListPresenter recylermoviepresenter) {
-        this.recylermoviepresenter=recylermoviepresenter;
+    RecyclerviewClickListner onclick;
 
+    public HorizontalAdapter(RecyclerviewMovieListPresenter recylermoviepresenter, RecyclerviewClickListner onclick) {
+        this.recylermoviepresenter = recylermoviepresenter;
+        this.onclick = onclick;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<MoviesViewHolder> {
 
     @Override
     public void onBindViewHolder(MoviesViewHolder holder, int position) {
-        recylermoviepresenter.onbindview( holder,  position);
+        recylermoviepresenter.onbindview(holder, position,onclick);
 
     }
 

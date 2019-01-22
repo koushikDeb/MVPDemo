@@ -1,10 +1,12 @@
 package com.iodroid.koushik.smartkids90scontentsforkids.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by amaresh on 04-01-2019.
  */
 
-public class VideoModel {
+public class VideoModel implements Serializable{
 
     String videourl;
     String getVideoid;

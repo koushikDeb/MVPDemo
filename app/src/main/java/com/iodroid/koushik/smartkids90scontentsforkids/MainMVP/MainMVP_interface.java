@@ -15,6 +15,7 @@ public interface MainMVP_interface {
        public void populaterecycerViewmovie( List<VideoModel> rplist);
         public void populaterecycerViewshort(List<VideoModel> rplist);
         public void populaterecycerViewknowledge( List<VideoModel> rplist);
+
     }
 
     interface presenter

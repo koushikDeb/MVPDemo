@@ -23,21 +23,21 @@ public class MainPresenter implements MainMVP_interface.presenter {
 
     @Override
     public void createMovieslist() {
-        view.populaterecycerViewmovie(getlist(5,"http://www.gstatic.com/tv/thumb/v22vodart/12863030/p12863030_v_v8_ae.jpg"));
+        view.populaterecycerViewmovie(getlist("_xBziiJI3DU",5,"http://www.gstatic.com/tv/thumb/v22vodart/12863030/p12863030_v_v8_ae.jpg"));
 
     }
 
     @Override
     public void createshortcartoonslist() {
 
-        view.populaterecycerViewshort(getlist(15,"https://4.bp.blogspot.com/-BV2xlHZtk44/WQd1h5R037I/AAAAAAAAAFM/Refx0rt1C-MqOeum2nRtNuVZrn3RTmoxQCLcB/s1600/Shinchan%2BMovie%2BKaanta%2BLagaa%2BTC%2B2.jpg"));
+        view.populaterecycerViewshort(getlist("zhlRiyG5Mp8",15,"https://4.bp.blogspot.com/-BV2xlHZtk44/WQd1h5R037I/AAAAAAAAAFM/Refx0rt1C-MqOeum2nRtNuVZrn3RTmoxQCLcB/s1600/Shinchan%2BMovie%2BKaanta%2BLagaa%2BTC%2B2.jpg"));
 
     }
 
     @Override
     public void craeteknowledgelist()
     {
-        view.populaterecycerViewknowledge(getlist(10,"https://thumbs.mic.com/MDg5ZDg2MDc1MyMvOFRiOGxUV1cwRWYyNzRqWlFnUlVLdDZlUFFRPS8weDY4OjE5MTZ4MTI3Ny84MDB4NDUwL2ZpbHRlcnM6Zm9ybWF0KGpwZWcpOnF1YWxpdHkoODApL2h0dHBzOi8vczMuYW1hem9uYXdzLmNvbS9wb2xpY3ltaWMtaW1hZ2VzLzljMWRiN2VjZThlMjRmNTQ2YTIzNzU2NTBiMDI3Y2UyMDkxNzEyODQ5ZWIwYzVmZWE1ODNmMTg5MWYyMWIyNjAuanBn.jpg"));
+        view.populaterecycerViewknowledge(getlist("EIxAPFYDsnQ",10,"https://thumbs.mic.com/MDg5ZDg2MDc1MyMvOFRiOGxUV1cwRWYyNzRqWlFnUlVLdDZlUFFRPS8weDY4OjE5MTZ4MTI3Ny84MDB4NDUwL2ZpbHRlcnM6Zm9ybWF0KGpwZWcpOnF1YWxpdHkoODApL2h0dHBzOi8vczMuYW1hem9uYXdzLmNvbS9wb2xpY3ltaWMtaW1hZ2VzLzljMWRiN2VjZThlMjRmNTQ2YTIzNzU2NTBiMDI3Y2UyMDkxNzEyODQ5ZWIwYzVmZWE1ODNmMTg5MWYyMWIyNjAuanBn.jpg"));
 
     }
 
@@ -47,10 +47,10 @@ public class MainPresenter implements MainMVP_interface.presenter {
 
 
 
-    public List<VideoModel> getlist(int wantedlength,String image)
+    public List<VideoModel> getlist(String videourl,int wantedlength,String image)
     {
         List<VideoModel> rplist = new ArrayList<VideoModel>();
-        VideoModel vm =new VideoModel("http://test.com", "001",false, "a simple test", "marvel", "Avengers", image, "4.2",20000);
+        VideoModel vm =new VideoModel(videourl, "001",false, "a simple test", "marvel", "Avengers", image, "4.2",20000);
         for(int i=0;i<wantedlength;i++) {
             rplist.add(vm);
         }
