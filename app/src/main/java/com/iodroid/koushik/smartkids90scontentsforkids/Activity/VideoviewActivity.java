@@ -1,7 +1,10 @@
 
 package com.iodroid.koushik.smartkids90scontentsforkids.Activity;
 
-import android.arch.lifecycle.LifecycleObserver;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 import com.iodroid.koushik.smartkids90scontentsforkids.Base.BaseActivity;
@@ -10,6 +13,7 @@ import com.iodroid.koushik.smartkids90scontentsforkids.R;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
 
 import butterknife.BindView;
@@ -26,6 +30,8 @@ public class VideoviewActivity extends BaseActivity {
     YouTubePlayerView youtube_player_view;
     VideoModel vm;
     Unbinder unbinder;
+    YouTubePlayer youtube_player;
+    YouTubePlayerInitListener mylistner;
 
     @Override
     protected void onActivityCreated() {
@@ -35,35 +41,61 @@ public class VideoviewActivity extends BaseActivity {
 
         youtube_player_view = findViewById(R.id.youtube_player_view);
 
-        getLifecycle().addObserver(youtube_player_view);
 
-        youtube_player_view.initialize(new YouTubePlayerInitListener() {
+        mylistner = new YouTubePlayerInitListener() {
             @Override
             public void onInitSuccess(@NonNull final YouTubePlayer initializedYouTubePlayer) {
-                initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+                youtube_player = initializedYouTubePlayer;
+                youtube_player.addListener(new AbstractYouTubePlayerListener() {
                     @Override
                     public void onReady() {
                         String videoId = vm.getVideourl();
-                        initializedYouTubePlayer.loadVideo(videoId, 0);
+                        youtube_player.loadVideo(videoId, 0);
                     }
                 });
             }
-        }, true);
+        };
+        getLifecycle().addObserver(youtube_player_view);
+
+        youtube_player_view.addFullScreenListener(new YouTubePlayerFullScreenListener() {
+            @Override
+            public void onYouTubePlayerEnterFullScreen() {
+
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+            }
+
+            @Override
+            public void onYouTubePlayerExitFullScreen() {
+
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
+        });
+
+        youtube_player_view.initialize(mylistner, true);
 
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+            toggletoolbar();
+        }
+    }
 
     @Override
-    protected void onbackpresscalled() {
-        if (youtube_player_view.isFullScreen()) {
-            youtube_player_view.exitFullScreen();
+    public void onStop() {
+        super.onStop();
+        youtube_player.pause(); // to stop the player when the activity/fragment is not visibile
+    }
 
-        }
-        else {
-            youtube_player_view.release();
-            super.onBackPressed();
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // youtube_player_view.release();
     }
 
     @Override
@@ -75,4 +107,21 @@ public class VideoviewActivity extends BaseActivity {
     protected String getToolbartitle() {
         return vm.getCategory();
     }
+
+    @Override
+    protected void onbackpresscalled() {
+        if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+            youtube_player_view.exitFullScreen();
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            toggletoolbar();
+
+        } else {
+            Intent i = new Intent(this, MainActivity.class);
+            youtube_player.pause();
+            youtube_player_view.release();
+            startactivitycustomexit(i);
+        }
+    }
+
+
 }

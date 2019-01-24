@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -39,16 +40,29 @@ public abstract class BaseActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     private Unbinder unbinder;
     ProgressBar progressBar;
-    public void createActionbar()
-    {
+    Toolbar toolbar;
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+    public void createActionbar() {
+
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(getToolbartitle());
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorDrawer));
         setSupportActionBar(toolbar);
     }
 
+    public void toggletoolbar() {
+        if ( getSupportActionBar().isShowing()) {
+
+            getSupportActionBar().hide();
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        }
+        else
+        {
+            getSupportActionBar().show();
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,20 +95,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 });
 
 
-
-
-
-
-
-
     }
 
 
-
-
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         onbackpresscalled();
     }
 
@@ -108,10 +113,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void startactivitycustomexit(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransitionExit();
+    }
+
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         overridePendingTransitionEnter();
+
     }
 
     @Override
@@ -131,8 +142,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void onActivityCreated();
 
     protected abstract int addActivityLayout();
+
     protected abstract String getToolbartitle();
-    protected  abstract void onbackpresscalled();
+
+    protected abstract void onbackpresscalled();
+
     protected void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
@@ -150,7 +164,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void hideProgress() {
         if (progressBar != null) {
-            if (progressBar.getVisibility()==View.VISIBLE) {
+            if (progressBar.getVisibility() == View.VISIBLE) {
                 progressBar.setVisibility(View.INVISIBLE);
             }
         }
@@ -161,8 +175,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
-    public void showDialog(String msg,final Aleartdialoglistner at)
-    {
+    public void showDialog(String msg, final Aleartdialoglistner at) {
 
         new AlertDialog.Builder(this)
                 .setMessage(msg)
@@ -178,7 +191,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
 
-                        at.negetiveclicked( dialogInterface);
+                        at.negetiveclicked(dialogInterface);
 
                     }
                 })

@@ -18,6 +18,9 @@ public class HorizontalAdapter extends RecyclerView.Adapter<MoviesViewHolder> {
     RecyclerviewMovieListPresenter recylermoviepresenter;
     RecyclerviewClickListner onclick;
 
+
+
+    
     public HorizontalAdapter(RecyclerviewMovieListPresenter recylermoviepresenter, RecyclerviewClickListner onclick) {
         this.recylermoviepresenter = recylermoviepresenter;
         this.onclick = onclick;
